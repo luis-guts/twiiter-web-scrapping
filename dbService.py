@@ -12,8 +12,6 @@ def getLinhaMaisVendidaByMesAno(ano, mes):
     )
 
     with myconnection.cursor() as curs:
-        curs.execute("Truncate table vendas.linha_ano_mes")
-        myconnection.commit()
 
         curs.execute("""SELECT
                         id_linha,
@@ -21,9 +19,9 @@ def getLinhaMaisVendidaByMesAno(ano, mes):
                         ano,
                         mes,
                         quantidade_vendida
-                FROM vendas.linhaanomes
+                FROM vendas.linha_ano_mes
                 WHERE ano = %s and mes = %s
                 ORDER BY quantidade_vendida desc
                 """, (ano, mes))
         
-        return curs.fetchone()[1]
+        return curs.fetchone()
