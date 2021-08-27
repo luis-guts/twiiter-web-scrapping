@@ -25,3 +25,18 @@ def getLinhaMaisVendidaByMesAno(ano, mes):
                 """, (ano, mes))
         
         return curs.fetchone()
+
+
+def insertTweets(user, text):
+
+        myconnection = pymysql.connect(
+                host = environment.hostname,
+                user = environment.username,
+                passwd = environment.password,
+                db = environment.database
+        )
+
+        with myconnection.cursor() as curs:
+                query = "INSERT INTO vendas.tweets(user_id, text) VALUES(%s, %s)"
+                curs.execute(query, (user, text))
+                myconnection.commit()
